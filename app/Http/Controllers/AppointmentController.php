@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment; // Import the Appointment model
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class AppointmentController extends Controller
@@ -28,7 +29,16 @@ class AppointmentController extends Controller
             'end_time' => 'required|date|after:start_time',
         ]);
 
-        Appointment::create($validatedData);
+        // Retrieve the user ID from the session
+        $userId = session('user_id');
+
+        // Create the appointment and associate it with the user ID
+        Appointment::create([
+            'user_id' => Auth::id(),
+            'title' => $validatedData['title'],
+            'start_time' => $validatedData['start_time'],
+            'end_time' => $validatedData['end_time'],
+        ]);
 
         return redirect()->route('appointments.index')->with('success', 'Appointment created successfully.');
     }

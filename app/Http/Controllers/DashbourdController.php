@@ -40,41 +40,41 @@ class DashbourdController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function store(Request $request)
-     {
-         $request->validate([
-             'name' => 'required',
-             'email' => 'required|email',
-             'password' => [
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => [
                 'required',
                 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
             ],
-             'role_id' => 'required|in:1,2,3', // Validate role_id to be either 1 or 2
-             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-         ]);
+            'role_id' => 'required|in:1,2,3', // Validate role_id to be either 1 or 2
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-         // Handle the file upload
-         if ($request->hasFile('image')) {
-             $image = $request->file('image');
-             $imagePath = $image->move('/images');
-         }
+        // Handle the file upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imagePath = $image->move('/images');
+        }
 
-         // Create the new user
-         $user = new User;
-         $user->name = $request->name;
-         $user->email = $request->email;
-         $user->password = bcrypt($request->password);
-         $user->role_id = $request->role_id;
+        // Create the new user
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->role_id = $request->role_id;
 
-         // Assign the image path to the user if it was uploaded
-         if (isset($imagePath)) {
-             $user->image = $imagePath;
-         }
+        // Assign the image path to the user if it was uploaded
+        if (isset($imagePath)) {
+            $user->image = $imagePath;
+        }
 
-         $user->save();
+        $user->save();
 
-         return redirect()->route('dashboard.index')->with('success', 'User created successfully.');
-     }
+        return redirect()->route('dashboard.index')->with('success', 'User created successfully.');
+    }
 
 
 

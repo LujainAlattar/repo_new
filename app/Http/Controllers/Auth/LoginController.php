@@ -38,13 +38,13 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             // Authentication passed
             $user =Auth::user();
-
             if ($user->role_id == 1) {
                 // Redirect to the dashboard for users with role_id = 1
                 Session::put('role', 'admin');
                 return redirect()->intended('/dashboard');
             } elseif ($user->role_id == 2) {
                 // Redirect to the hello page for users with role_id = 2
+                Session::put('id', $user->id);
                 Session::put('role', 'user');
                 return redirect()->intended('/user/hello');
             } elseif ($user->role_id == 3) {

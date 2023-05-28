@@ -32,6 +32,12 @@
                         <a href="{{ route('user.index') }}" class="btn btn-primary">View My Ticket</a>
                     </div>
                 </div>
+                <div class="card mt-4">
+                    <div class="card-header">{{ __('Appointments') }}</div>
+                    <div class="card-body">
+                        <a href="{{ route('appointments.index') }}" class="btn btn-primary">Go to Appointments</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
