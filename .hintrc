@@ -1,0 +1,29 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "compat-api/css": [
+      "default",
+      {
+        "ignore": [
+          "-webkit-text-size-adjust",
+          "-webkit-tap-highlight-color",
+          "text-align: -webkit-match-parent",
+          "-webkit-overflow-scrolling",
+          "overflow-anchor",
+          "@page"
+        ]
+      }
+    ]
+  },
+  "browserslist": [
+    "defaults",
+    "not ie 11",
+    "not and_ff <= 110",
+    "not ios_saf <= 14.8",
+    "not firefox <= 111",
+    "not ios_saf <= 16.3",
+    "not safari <= 16.3"
+  ]
+}
